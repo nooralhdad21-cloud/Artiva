@@ -69,7 +69,13 @@ button {
 
 /* الطباعة */
 @media print {
+    /* إخفاء واجهة الموقع وإظهار الكارت فقط */
     body * { visibility: hidden; }
     .card-premium, .card-premium * { visibility: visible; }
-    .card-premium { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+    .card-premium { 
+        position: absolute; left: 50%; top: 40%; transform: translate(-50%, -50%);
+        background: #111 !important; color: white !important;
+        -webkit-print-color-adjust: exact; /* مهم جداً لإظهار الخلفية السوداء */
+    }
+    #qrcode { background: white !important; padding: 10px !important; }
 }
