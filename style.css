@@ -1,27 +1,23 @@
-:root { --main-gold: #d4af37; --card-bg: #1a1a1a; }
-body { background: #f0f2f5; font-family: 'Tahoma', sans-serif; }
 .card-premium {
-    background: var(--card-bg) !important;
-    color: white !important;
-    width: 350px; margin: 20px auto;
-    padding: 25px; border-radius: 15px;
-    border: 2px solid var(--main-gold);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    background: #000 !important; /* أسود ملكي */
+    color: #fff !important;
+    width: 380px; /* حجم أكبر قليلاً */
+    height: 220px;
+    padding: 20px;
+    border-radius: 10px;
+    border: 4px solid #fff; /* إطار أبيض عريض ليلفت الانتباه خلف الزجاج */
+    text-align: center;
+    margin: 20px auto;
 }
-#qrcode { background: white; padding: 10px; display: inline-block; border-radius: 8px; margin: 15px 0; }
-.dev-footer { margin-top: 50px; padding: 20px; border-top: 1px solid #ddd; }
-.social-dev a { margin: 0 10px; text-decoration: none; color: #007bff; font-weight: bold; }
 
-/* إعدادات الطباعة الاحترافية */
-@media print {
-    .no-print { display: none !important; }
-    body { background: white !important; }
-    .card-premium {
-        position: absolute; top: 20%; left: 50%; transform: translateX(-50%);
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-        background-color: #1a1a1a !important;
-        color: white !important;
-        box-shadow: none;
-    }
+#displayPhone {
+    font-size: 28px; /* رقم كبير جداً للاتصال السريع */
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin: 10px 0;
+}
+
+#displayName {
+    font-size: 22px;
+    margin-bottom: 5px;
 }
