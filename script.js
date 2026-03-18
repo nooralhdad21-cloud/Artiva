@@ -1,41 +1,40 @@
-// تحديث البيانات حياً
+// وظيفة المشاهدة الحية
 function updateLive() {
-    const name = document.getElementById('inName').value || "المهندس نورالدين صباح";
-    const phone = document.getElementById('inPhone').value || "07701109692";
-    const msg = document.getElementById('inMsg').value || "أعتذر عن الوقوف الخاطئ، يرجى الاتصال بي";
+    const nameInput = document.getElementById('inName').value;
+    const phoneInput = document.getElementById('inPhone').value;
+    const msgInput = document.getElementById('inMsg').value;
 
-    document.getElementById('outName').innerText = name;
-    document.getElementById('outPhone').innerText = phone;
-    document.getElementById('outMsg').innerText = msg;
+    if(nameInput) document.getElementById('outName').innerText = nameInput;
+    if(phoneInput) document.getElementById('outPhone').innerText = phoneInput;
+    if(msgInput) document.getElementById('outMsg').innerText = msgInput;
 }
 
-// تغيير القوالب
-function setTpl(style, btn) {
+// وظيفة تبديل القوالب (الأزرار)
+function setTpl(style, element) {
     const card = document.getElementById('cardBox');
     card.className = 'main-card tpl-' + style;
-    
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+
+    // تحديث شكل الزر النشط
+    const btns = document.querySelectorAll('.tab-btn');
+    btns.forEach(btn => btn.classList.remove('active'));
+    element.classList.add('active');
 }
 
-// حفظ كصورة بجودة عالية
+// وظيفة حفظ الصورة
 function takeShot() {
     const card = document.getElementById('cardBox');
-    const saveBtn = document.querySelector('.btn-save');
-    saveBtn.innerText = "جاري الحفظ...";
+    const btn = document.querySelector('.btn-save');
+    btn.innerText = "جاري الحفظ...";
 
     html2canvas(card, {
-        scale: 3, 
-        backgroundColor: null,
-        useCORS: true
+        scale: 3,
+        useCORS: true,
+        backgroundColor: null
     }).then(canvas => {
         const link = document.createElement('a');
-        link.download = `CarLink-Pro-${Date.now()}.png`;
+        link.download = `CarLink-Pro.png`;
         link.href = canvas.toDataURL("image/png");
         link.click();
-        saveBtn.innerText = "💾 حفظ الصورة";
-    }).catch(err => {
-        saveBtn.innerText = "💾 حفظ الصورة";
-        alert("حدث خطأ بسيط، حاول مرة أخرى");
+        btn.innerText = "💾 حفظ الصورة";
     });
 }
