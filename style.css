@@ -1,23 +1,37 @@
+:root { --gold: #d4af37; --black: #000000; }
+body { background: #f4f7f6; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; direction: rtl; }
+.container { max-width: 600px; margin: 20px auto; padding: 20px; text-align: center; }
+.panel { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+input { width: 90%; padding: 15px; margin: 10px 0; border: 2px solid #eee; border-radius: 10px; font-size: 16px; }
+button { padding: 15px 25px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; color: white; margin: 5px; }
+
+.btn-primary { background: #007bff; }
+.btn-success { background: #28a745; }
+.btn-image { background: #6f42c1; }
+.btn-share { background: #17a2b8; }
+
+/* تصميم البطاقة الفاخرة للزجاج الأمامي */
 .card-premium {
-    background: #000 !important; /* أسود ملكي */
-    color: #fff !important;
-    width: 380px; /* حجم أكبر قليلاً */
-    height: 220px;
-    padding: 20px;
-    border-radius: 10px;
-    border: 4px solid #fff; /* إطار أبيض عريض ليلفت الانتباه خلف الزجاج */
-    text-align: center;
-    margin: 20px auto;
+    background: var(--black) !important; color: white !important;
+    width: 400px; height: 240px; padding: 25px; border-radius: 12px;
+    margin: 50px auto; border: 4px solid white; text-align: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3); position: relative;
 }
+.emergency-text { color: #ff4d4d; font-weight: bold; font-size: 16px; margin-bottom: 5px; }
+#displayName { font-size: 24px; margin: 5px 0; border-bottom: 1px solid #333; display: inline-block; padding-bottom: 5px; }
+#displayPhone { font-size: 32px; font-weight: bold; color: white; margin: 10px 0; letter-spacing: 1px; }
+#qrcode { background: white; padding: 8px; display: inline-block; border-radius: 8px; margin-top: 5px; }
+.card-socials { font-size: 14px; color: var(--gold); margin-top: 5px; }
+.card-footer-text { font-size: 9px; margin-top: 10px; opacity: 0.6; line-height: 1.4; }
 
-#displayPhone {
-    font-size: 28px; /* رقم كبير جداً للاتصال السريع */
-    font-weight: bold;
-    letter-spacing: 2px;
-    margin: 10px 0;
-}
-
-#displayName {
-    font-size: 22px;
-    margin-bottom: 5px;
+/* تنسيق الطباعة A4 */
+@media print {
+    .no-print { display: none !important; }
+    body { background: white !important; }
+    #printArea { display: flex; justify-content: center; align-items: center; height: 100vh; }
+    .card-premium { 
+        -webkit-print-color-adjust: exact !important; 
+        print-color-adjust: exact !important;
+        border: 2px solid black !important; /* لضمان الوضوح في الطباعة */
+    }
 }
