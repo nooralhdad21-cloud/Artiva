@@ -1,46 +1,35 @@
-// قائمة رسائل الاعتذار العشوائية
-const sorryMessages = [
-    "عذراً.. لقد سددت طريقك، أتأسف جداً.",
-    "دقائق قليلة وسأعود.. شكراً لصبرك.",
-    "أتأسف إذا ضايقتك وقفتي، اتصل بي فوراً.",
-    "أعتذر عن الإزعاج، سأحرك السيارة الآن.",
-    "في حال الوقوف الخاطئ، يرجى الاتصال بي.",
-    "سأعود سريعاً.. شكراً لتفهمك."
-];
-
+// تثبيت الدوال في Window لضمان عملها على GitHub Pages
 window.login = function() {
     const p = document.getElementById("loginPhone").value;
     if(p.length < 10) {
-        alert("يرجى إدخال رقم هاتف صحيح");
+        alert("يرجى إدخال رقم هاتف صحيح (10 أرقام)");
         return;
     }
-    window.fullPhone = p;
+    window.fullPhone = p; // حفظ الرقم المدخل
     document.getElementById("loginSection").style.display = "none";
     document.getElementById("dashboard").style.display = "block";
     updatePreview();
 }
 
 window.updatePreview = function() {
-    const name = document.getElementById("nameInput").value || "صاحب السيارة";
+    const name = document.getElementById("nameInput").value || "نورالدين صباح";
     const insta = document.getElementById("instaUser").value;
     
-    // إظهار الرقم بالكامل وضخماً (بدون باركود)
-    document.getElementById("displayPhone").innerText = window.fullPhone;
+    // تحديث الاسم
     document.getElementById("displayName").innerText = name;
     
-    // تحديث اليوزرات
-    document.getElementById("instaLabel").innerText = insta ? "IG: " + insta : "";
-
-    // اختيار رسالة اعتذار عشوائية جديدة عند كل تحديث
-    const randomMessage = sorryMessages[Math.floor(Math.random() * sorryMessages.length)];
-    document.getElementById("sorryMessage").innerText = randomMessage;
+    // تحديث الرقم ليظهر بالكامل كما هو
+    document.getElementById("displayPhone").innerText = window.fullPhone;
+    
+    // تحديث اليوزر (انستجرام)
+    document.getElementById("instaLabel").innerText = insta ? "Instagram: @" + insta : "";
 }
 
 window.downloadCard = function() {
     const target = document.getElementById("captureTarget");
-    html2canvas(target, { scale: 3 }).then(canvas => { // scale 3 لجودة عالية جداً
+    html2canvas(target, { scale: 3 }).then(canvas => { // scale 3 لجودة عالية
         const link = document.createElement('a');
-        link.download = 'CarLink-Apology.png';
+        link.download = 'CarLink-Emergency-Card.png';
         link.href = canvas.toDataURL("image/png");
         link.click();
     });
