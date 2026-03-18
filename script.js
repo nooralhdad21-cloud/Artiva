@@ -1,28 +1,34 @@
-/* === designer.js | محرك منصة CarLink Designer === */
+/* === ملاحظات المهندس نورالدين === */
 
-// دوال التحكم في النماذج (القوالب)
-function changeTemplate(tplName) {
-    const card = document.getElementById("captureTarget");
-    // إزالة القالب الحالي وإضافة الجديد
-    card.className = "card-premium tpl-" + tplName;
+// 1. وظيفة مزامنة البيانات (Live Update)
+function syncData() {
+    // جلب القيم من المدخلات
+    const name = document.getElementById('inName').value || "صاحب السيارة";
+    const phone = document.getElementById('inPhone').value || "07XXXXXXXXX";
+    const insta = document.getElementById('inInsta').value;
+    const msg = document.getElementById('inMsg').value || "أعتذر عن الوقوف الخاطئ";
+
+    // وضع القيم في البطاقة
+    document.getElementById('outName').innerText = name;
+    document.getElementById('outPhone').innerText = phone;
+    document.getElementById('outMsg').innerText = msg;
+    document.getElementById('outInsta').innerText = insta ? "IG: @" + insta : "";
 }
 
-// دالة التحديث المباشر للمعاينة (المحاكاة)
-function updatePreview() {
-    const name = document.getElementById("nameInput").value || "صاحب السيارة";
-    const phone = document.getElementById("phoneInput").value || "07XXXXXXXXX";
-    const insta = document.getElementById("instaInput").value;
-
-    document.getElementById("displayName").innerText = name;
-    document.getElementById("displayPhone").innerText = phone;
-    document.getElementById("instaLabel").innerText = insta ? "IG: @" + insta : "";
+// 2. تغيير القوالب (Templates Switcher)
+function setTemplate(style) {
+    const card = document.getElementById('cardCanvas');
+    // إزالة كل الكلاسات القديمة وإضافة الجديد
+    card.className = 'card tpl-' + style;
 }
 
-// دالة حفظ التصميم النهائي كصورة عالية الدقة
-function downloadCard() {
-    const target = document.getElementById("captureTarget");
-    // scale 3 لضمان جودة عالية للطباعة
-    html2canvas(target, { scale: 3 }).then(canvas => {
+// 3. حفظ كصورة بجودة عالية
+function saveAsImage() {
+    const card = document.getElementById('cardCanvas');
+    html2canvas(card, {
+        scale: 3, // تكبير الجودة 3 مرات للطباعة
+        useCORS: true
+    }).then(canvas => {
         const link = document.createElement('a');
         link.download = 'CarLink-Design.png';
         link.href = canvas.toDataURL("image/png");
