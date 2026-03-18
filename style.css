@@ -1,43 +1,31 @@
-:root { --gold: #c9a227; --black: #000000; --white: #ffffff; --red: #ff4d4d; }
-body { background: #f0f2f5; font-family: 'Segoe UI', Arial, sans-serif; margin: 0; direction: rtl; }
-.container { max-width: 600px; margin: 20px auto; padding: 20px; text-align: center; }
-.panel { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin-bottom: 20px; }
-.phone-input-wrapper { display: flex; align-items: center; justify-content: center; width: 90%; margin: 10px auto; border: 2px solid #eee; border-radius: 10px; padding: 0 10px; }
-.phone-input-wrapper span { font-weight: bold; color: #555; padding: 15px; border-left: 1px solid #eee; }
-.phone-input-wrapper input { border: none; width: 100%; outline: none; text-align: left; padding: 15px; font-size: 16px; }
-input { width: 90%; padding: 15px; margin: 10px 0; border: 2px solid #eee; border-radius: 10px; font-size: 16px; text-align: center; }
-button { padding: 15px 25px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; color: white; margin: 5px; font-size: 16px; transition: 0.3s; }
+/* === designer.css | تنسيق القوالب ولوحة التحكم === */
 
-.btn-primary { background: #007bff; }
-.btn-success { background: #28a745; }
-.btn-image { background: #6f42c1; }
+:root { --main-gold: #c9a227; --black: #111111; --white: #ffffff; }
 
-/* تصميم البطاقة الفاخرة للزجاج الأمامي */
-.card-premium {
-    background: var(--black) !important; color: white !important;
+/* القالب الأول: ذهبي فخم (tpl-gold) */
+.card-premium.tpl-gold {
+    background: var(--black) !important; color: var(--white) !important;
     width: 450px; height: 260px; padding: 30px; border-radius: 10px;
-    margin: 50px auto; border: 6px solid var(--gold); /* إطار ذهبي عريض */
-    text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-    position: relative; overflow: hidden;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    border: 6px solid var(--gold); text-align: center;
 }
-.emergency-text { color: var(--red); font-weight: bold; font-size: 18px; margin-bottom: 10px; }
-#displayName { font-size: 32px; margin: 5px 0 0 0; font-weight: bold; }
-.displayName-underline { width: 100px; height: 2px; background: #555; margin-bottom: 15px; }
-#displayPhone { font-size: 48px; font-weight: bold; color: white; margin: 0; letter-spacing: 2px; }
-.empty-qr-placeholder { background: white; width: 130px; height: 130px; border-radius: 8px; margin-top: 15px; margin-bottom: 10px; }
-.card-socials { font-size: 14px; color: var(--gold); margin-top: 5px; }
-.card-footer-text { font-size: 9px; margin-top: 10px; opacity: 0.6; line-height: 1.4; }
+.tpl-gold .card-header { color: var(--gold); }
 
-/* تنسيق الطباعة A4 */
-@media print {
-    .no-print { display: none !important; }
-    body { background: white !important; }
-    #printArea { display: flex; justify-content: center; align-items: center; height: 100vh; }
-    .card-premium { 
-        -webkit-print-color-adjust: exact !important; 
-        print-color-adjust: exact !important;
-        border: 4px solid #000 !important; /* لضمان الوضوح في الطباعة */
-        box-shadow: none !important;
-    }
+/* القالب الثاني: أسود رياضي (tpl-dark) */
+.card-premium.tpl-dark {
+    background: #222 !important; color: white !important;
+    width: 450px; height: 260px; padding: 30px; border-radius: 5px;
+    border-left: 15px solid #ff0000; text-align: center;
 }
+.tpl-dark .card-header { text-transform: uppercase; color: #ff0000; }
+
+/* القالب الثالث: أبيض كلاسيك (tpl-white) */
+.card-premium.tpl-white {
+    background: white !important; color: black !important;
+    width: 450px; height: 260px; padding: 30px; border-radius: 10px;
+    border: 1px solid #ddd; text-align: center;
+}
+.tpl-white .card-header { font-weight: bold; border-bottom: 2px solid black; }
+
+/* === تعديل المهندس: حقوق الملكية والدومين === */
+.dev-rights { font-size: 8px; margin-top: 10px; opacity: 0.7; }
+.site-domain { font-family: monospace; }
