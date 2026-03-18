@@ -1,55 +1,104 @@
-* { box-sizing: border-box; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; }
-body { margin: 0; background: #0a0e17; color: white; height: 100vh; overflow: hidden; }
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CarLink Pro | المهندس نورالدين</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* التنسيق البرو المتجاوب */
+        * { box-sizing: border-box; font-family: 'Cairo', sans-serif; }
+        body { margin: 0; background: #0a0e17; color: white; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
 
-.app-container { display: flex; flex-direction: column; height: 100vh; }
+        /* منطقة المعاينة - النصف العلوي */
+        .preview-box { flex: 1; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle, #1e293b 0%, #0a0e17 100%); padding: 10px; }
+        
+        .main-card { 
+            width: 100%; max-width: 420px; aspect-ratio: 1.6 / 1; 
+            border-radius: 15px; padding: 20px; display: flex; flex-direction: column; 
+            justify-content: center; text-align: center; position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
 
-/* منطقة المعاينة - تأخذ نصف الشاشة العلوي */
-.preview-box {
-    flex: 1; display: flex; align-items: center; justify-content: center;
-    background: radial-gradient(circle, #1e293b 0%, #0a0e17 100%);
-    padding: 15px;
-}
+        .tpl-luxury { background: #000; border: 3px solid #d4af37; color: #fff; }
+        .tpl-sport { background: #1e1b4b; border-right: 15px solid #ef4444; color: #fff; }
 
-/* البطاقة الذكية - مرنة جداً */
-.main-card {
-    width: 100%; max-width: 400px; aspect-ratio: 1.6 / 1;
-    border-radius: 15px; padding: 20px; display: flex; flex-direction: column;
-    justify-content: center; text-align: center; transition: 0.3s;
-}
+        .phone-num { font-size: clamp(24px, 8vw, 38px); font-weight: 900; margin: 5px 0; color: #fff; }
+        .msg-text { font-size: 14px; opacity: 0.8; margin-bottom: 5px; }
+        .card-footer { font-size: 9px; opacity: 0.5; position: absolute; bottom: 10px; width: 100%; left: 0; }
 
-.tpl-luxury { background: #000; border: 3px solid #d4af37; color: #fff; }
-.tpl-sport { background: #1e1b4b; border-right: 15px solid #ef4444; color: #fff; }
+        /* لوحة التحكم - النصف السفلي */
+        .editor-panel { background: #161e2d; padding: 15px; border-top: 2px solid #2d3748; }
+        .tabs { display: flex; gap: 8px; margin-bottom: 12px; }
+        .tab-btn { flex: 1; padding: 10px; border-radius: 8px; border: none; background: #2d3748; color: white; font-weight: bold; cursor: pointer; }
+        .tab-btn.active { background: #00d2ff; color: #000; }
 
-.phone-num { font-size: clamp(28px, 8vw, 40px); font-weight: 900; margin: 10px 0; }
-.msg-text { font-size: 14px; opacity: 0.8; }
-.card-footer { font-size: 9px; opacity: 0.5; margin-top: 10px; }
+        input, textarea { width: 100%; background: #0a0e17; border: 1px solid #2d3748; padding: 10px; border-radius: 8px; color: white; margin-bottom: 8px; outline: none; font-size: 14px; }
+        
+        .main-actions { display: flex; gap: 10px; }
+        .btn-save { flex: 1; background: #00d2ff; color: #000; border: none; padding: 12px; border-radius: 10px; font-weight: bold; }
+        .btn-print { background: transparent; color: white; border: 1px solid white; padding: 12px; border-radius: 10px; }
+        
+        .rights { text-align: center; font-size: 10px; opacity: 0.6; margin-top: 8px; }
 
-/* لوحة التحكم - تأخذ النصف السفلي */
-.editor-panel {
-    background: #161e2d; padding: 20px;
-    border-top-left-radius: 20px; border-top-right-radius: 20px;
-    box-shadow: 0 -10px 20px rgba(0,0,0,0.3);
-}
+        @media (min-width: 768px) {
+            body { flex-direction: row; }
+            .editor-panel { width: 350px; height: 100vh; border-top: none; border-left: 2px solid #2d3748; }
+        }
+    </style>
+</head>
+<body>
 
-.tabs { display: flex; gap: 10px; margin-bottom: 15px; }
-.tab-btn { flex: 1; padding: 10px; border-radius: 8px; border: none; background: #2d3748; color: white; cursor: pointer; }
-.tab-btn.active { background: #00d2ff; color: #000; font-weight: bold; }
+<div class="preview-box">
+    <div id="cardBox" class="main-card tpl-luxury">
+        <p id="outMsg" class="msg-text">أعتذر عن الوقوف الخاطئ، يرجى الاتصال بي</p>
+        <div class="phone-num"><span id="outPhone">07701109692</span></div>
+        <h2 id="outName" style="font-size: 18px; margin: 0;">نورالدين صباح</h2>
+        <div class="card-footer">nooralhdad21-cloud.github.io/carlink</div>
+    </div>
+</div>
 
-.input-fields input, .input-fields textarea {
-    width: 100%; background: #0a0e17; border: 1px solid #2d3748;
-    padding: 12px; border-radius: 8px; color: white; margin-bottom: 10px; outline: none;
-}
+<aside class="editor-panel no-print">
+    <div class="tabs">
+        <button id="btnLuxury" class="tab-btn active" onclick="setTpl('luxury', this)">ملكي</button>
+        <button id="btnSport" class="tab-btn" onclick="setTpl('sport', this)">رياضي</button>
+    </div>
 
-.main-actions { display: flex; gap: 10px; }
-.btn-save { flex: 1; background: #00d2ff; color: #000; border: none; padding: 15px; border-radius: 10px; font-weight: bold; }
-.btn-print { background: transparent; color: white; border: 1px solid white; padding: 15px; border-radius: 10px; }
+    <input type="text" id="inName" placeholder="الاسم الكامل" oninput="updateLive()">
+    <input type="tel" id="inPhone" placeholder="رقم الهاتف" oninput="updateLive()">
+    <textarea id="inMsg" placeholder="رسالة الاعتذار..." oninput="updateLive()"></textarea>
 
-.rights { text-align: center; font-size: 10px; opacity: 0.5; margin-top: 10px; }
+    <div class="main-actions">
+        <button class="btn-save" onclick="takeShot()">💾 حفظ الصورة</button>
+        <button class="btn-print" onclick="window.print()">🖨️ طباعة</button>
+    </div>
+    <p class="rights">تطوير وتصميم: المهندس نورالدين صباح</p>
+</aside>
 
-/* Desktop Fix */
-@media (min-width: 768px) {
-    .app-container { flex-direction: row; }
-    .editor-panel { width: 350px; height: 100vh; border-radius: 0; }
-}
+<script>
+    function updateLive() {
+        document.getElementById('outName').innerText = document.getElementById('inName').value || "نورالدين صباح";
+        document.getElementById('outPhone').innerText = document.getElementById('inPhone').value || "07701109692";
+        document.getElementById('outMsg').innerText = document.getElementById('inMsg').value || "أعتذر عن الوقوف الخاطئ، يرجى الاتصال بي";
+    }
 
-@media print { .no-print { display: none; } }
+    function setTpl(style, btn) {
+        document.getElementById('cardBox').className = 'main-card tpl-' + style;
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
+
+    function takeShot() {
+        const card = document.getElementById('cardBox');
+        html2canvas(card, { scale: 3, useCORS: true }).then(canvas => {
+            const link = document.createElement('a');
+            link.download = `CarLink-Pro.png`;
+            link.href = canvas.toDataURL("image/png");
+            link.click();
+        });
+    }
+</script>
+
+</body>
+</html>
