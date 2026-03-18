@@ -1,35 +1,30 @@
-// تثبيت الدوال في Window لضمان عملها على GitHub Pages
-window.login = function() {
-    const p = document.getElementById("loginPhone").value;
-    if(p.length < 10) {
-        alert("يرجى إدخال رقم هاتف صحيح (10 أرقام)");
-        return;
-    }
-    window.fullPhone = p; // حفظ الرقم المدخل
-    document.getElementById("loginSection").style.display = "none";
-    document.getElementById("dashboard").style.display = "block";
-    updatePreview();
+/* === designer.js | محرك منصة CarLink Designer === */
+
+// دوال التحكم في النماذج (القوالب)
+function changeTemplate(tplName) {
+    const card = document.getElementById("captureTarget");
+    // إزالة القالب الحالي وإضافة الجديد
+    card.className = "card-premium tpl-" + tplName;
 }
 
-window.updatePreview = function() {
-    const name = document.getElementById("nameInput").value || "نورالدين صباح";
-    const insta = document.getElementById("instaUser").value;
-    
-    // تحديث الاسم
+// دالة التحديث المباشر للمعاينة (المحاكاة)
+function updatePreview() {
+    const name = document.getElementById("nameInput").value || "صاحب السيارة";
+    const phone = document.getElementById("phoneInput").value || "07XXXXXXXXX";
+    const insta = document.getElementById("instaInput").value;
+
     document.getElementById("displayName").innerText = name;
-    
-    // تحديث الرقم ليظهر بالكامل كما هو
-    document.getElementById("displayPhone").innerText = window.fullPhone;
-    
-    // تحديث اليوزر (انستجرام)
-    document.getElementById("instaLabel").innerText = insta ? "Instagram: @" + insta : "";
+    document.getElementById("displayPhone").innerText = phone;
+    document.getElementById("instaLabel").innerText = insta ? "IG: @" + insta : "";
 }
 
-window.downloadCard = function() {
+// دالة حفظ التصميم النهائي كصورة عالية الدقة
+function downloadCard() {
     const target = document.getElementById("captureTarget");
-    html2canvas(target, { scale: 3 }).then(canvas => { // scale 3 لجودة عالية
+    // scale 3 لضمان جودة عالية للطباعة
+    html2canvas(target, { scale: 3 }).then(canvas => {
         const link = document.createElement('a');
-        link.download = 'CarLink-Emergency-Card.png';
+        link.download = 'CarLink-Design.png';
         link.href = canvas.toDataURL("image/png");
         link.click();
     });
