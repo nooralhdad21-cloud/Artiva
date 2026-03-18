@@ -3,32 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CarLink | بطاقة اعتذار ذكية</title>
+    <title>CarLink 2026 | بطاقة الطوارئ الذكية</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container no-print">
         <header>
-            <h1>🚗 CarLink | بطاقة اعتذار</h1>
-            <p>تصميم مميز المهندس نورالدين صباح</p>
+            <h1>🚗 CarLink 2026</h1>
+            <p>نظام بطاقات الطوارئ والاعتذار لأصحاب السيارات</p>
         </header>
 
         <section id="loginSection" class="panel">
-            <h3>أدخل رقم هاتفك (يظهر بوضوح خلف الزجاج)</h3>
-            <input type="text" id="loginPhone" placeholder="مثال: 07701109692" maxlength="11">
-            <button class="btn-primary" onclick="login()">إنشاء بطاقتي الفخمة</button>
+            <h3>أدخل رقم هاتفك للبدء</h3>
+            <div class="phone-input-wrapper">
+                <span>+964</span>
+                <input type="text" id="loginPhone" placeholder="أدخل رقم الهاتف (مثلاً: 7701109692)" maxlength="10">
+            </div>
+            <button class="btn-primary" onclick="login()">إنشاء بطاقتي الآن</button>
         </section>
 
         <section id="dashboard" class="panel" style="display:none;">
             <div class="input-group">
-                <input type="text" id="nameInput" placeholder="الاسم الكامل (اختياري)" oninput="updatePreview()">
+                <input type="text" id="nameInput" placeholder="الاسم الكامل (يظهر على البطاقة)" oninput="updatePreview()">
                 <input type="text" id="instaUser" placeholder="يوزر انستجرام (اختياري)" oninput="updatePreview()">
             </div>
             
             <div class="actions">
                 <button class="btn-success" onclick="window.print()">🖨️ طباعة A4</button>
-                <button class="btn-image" onclick="downloadCard()">🖼️ حفظ كصورة</button>
+                <button class="btn-image" onclick="downloadCard()">🖼️ حفظ كصورة PNG</button>
             </div>
         </section>
     </div>
@@ -36,13 +39,13 @@
     <div id="printArea">
         <div id="captureTarget" class="card-premium">
             <div class="card-content">
-                <div id="sorryMessage" class="sorry-text"></div>
-                
-                <div class="call-text">في حال الضرورة اتصل بي:</div>
-                
-                <div id="displayPhone">077XXXXXXXX</div>
-                
+                <div class="emergency-text">في حال الضرورة اتصل بي:</div>
                 <h2 id="displayName">نورالدين صباح</h2>
+                <div class="displayName-underline"></div>
+                
+                <div id="displayPhone">770XXXXXXX</div>
+                
+                <div class="empty-qr-placeholder"></div>
                 
                 <div class="card-socials">
                     <span id="instaLabel"></span>
