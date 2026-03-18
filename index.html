@@ -1,52 +1,12 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CarLink 2026 - Smart Card</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="main-wrapper">
-        <h1 class="logo">🚗 CarLink 2026</h1>
-        
-        <div id="loginSection" class="card-panel">
-            <h3>مرحباً بك في نظام الربط الذكي</h3>
-            <input type="text" id="loginPhone" placeholder="أدخل رقم هاتفك (مثلاً: 07701109692)">
-            <button class="btn-main" onclick="login()">ابدأ التصميم الآن</button>
+<div id="captureTarget" class="card-premium">
+    <div class="card-content">
+        <div style="font-weight:bold; color:#ff0000; font-size:14px;">في حال الطوارئ اتصل بي:</div>
+        <h2 id="displayName">الاسم الكامل</h2>
+        <div id="displayPhone">077XXXXXXXX</div>
+        <div id="qrcode"></div>
+        <div class="card-socials">
+            <span id="instaLabel"></span> | <span id="teleLabel"></span>
         </div>
-
-        <div id="dashboard" style="display:none;">
-            <div class="inputs-panel no-print">
-                <input type="text" id="nameInput" placeholder="الاسم الكامل" oninput="updatePreview()">
-                <input type="text" id="fbInput" placeholder="رابط الفيسبوك" oninput="updatePreview()">
-                <button class="btn-print" onclick="window.print()">🖨️ طباعة البطاقة الاحترافية</button>
-            </div>
-
-            <div id="preview" class="card-premium">
-                <div class="card-inner">
-                    <div class="card-header">CARLINK SMART CARD</div>
-                    <h2 id="displayName">نورالدين صباح</h2>
-                    <p id="displayPhone">077*****000</p>
-                    <div id="qrcode"></div>
-                    <div class="card-footer">
-                        © 2026 نظام الربط الذكي للسيارات<br>
-                        تواصل معي عبر مسح الكود أعلاه
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <footer class="dev-footer no-print">
-            <p>تطوير المهندس: <strong>نورالدين صباح</strong></p>
-            <div class="social-dev">
-                <a href="https://instagram.com/eng.nooraldein" target="_blank">📸 Instagram</a>
-                <a href="https://t.me/rucno" target="_blank">✈️ Telegram</a>
-            </div>
-        </footer>
+        <footer style="margin-top:5px; font-size:10px;">حقوق التطوير: المهندس نورالدين صباح</footer>
     </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <script src="script.js"></script>
-</body>
-</html>
+</div>
