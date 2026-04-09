@@ -3,96 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>نظام الملاحة الذكي</title>
+    <title>Waze Plus Concept</title>
     <style>
+        :root {
+            --waze-blue: #33f1ff;
+            --waze-dark: #242526;
+            --waze-purple: #9637ff;
+        }
+
         body, html {
             margin: 0; padding: 0;
             width: 100%; height: 100%;
             overflow: hidden;
-            background-color: #1a1a1a;
-            font-family: Arial, sans-serif;
+            background-color: var(--waze-dark);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* الخريطة في الخلفية للتمويه */
-        .map-background {
+        /* خريطة الخلفية - تمويه كامل لشكل ويز */
+        .map-frame {
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            z-index: 1;
-            filter: grayscale(50%) brightness(40%);
-        }
-
-        /* حاوية الفيديو */
-        .video-container {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -60%);
-            width: 85%; height: 65%;
-            z-index: 10;
-            border: 3px solid #333;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            background: #000;
-        }
-
-        iframe { width: 100%; height: 100%; border: none; }
-
-        /* شريط التحكم السفلي بأزرار كبيرة */
-        .controls {
-            position: absolute;
-            bottom: 0; width: 100%;
-            height: 80px;
-            background: rgba(30, 30, 30, 0.9);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            z-index: 20;
-            backdrop-filter: blur(5px);
-        }
-
-        .btn {
-            background: #444;
-            color: white;
             border: none;
-            padding: 15px 25px;
-            border-radius: 10px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            min-width: 100px;
+            z-index: 1;
         }
 
-        .btn-refresh { background: #d32f2f; } /* أحمر للتحديث */
-        .btn-home { background: #1976d2; }    /* أزرق للرئيسية */
+        /* شريط جانبي يشبه قائمة ويز */
+        .side-menu {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
 
-        /* إخفاء الخريطة وإظهار الفيديو بملء الشاشة عند الحاجة */
-        .full-screen { width: 100% !important; height: 100% !important; top: 0 !important; left: 0 !important; transform: none !important; border: none !important; }
+        .waze-btn {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: white;
+            border: 4px solid var(--waze-blue);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 24px;
+            transition: 0.3s;
+        }
+
+        .waze-btn:active { transform: scale(0.9); }
+
+        .youtube-trigger {
+            background: var(--waze-purple);
+            border-color: white;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        /* نافذة يوتيوب المنبثقة - أبعاد أصلية */
+        .yt-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 200;
+            display: none; /* مخفي افتراضياً */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .yt-content {
+            width: 90%;
+            aspect-ratio: 16 / 9; /* أبعاد يوتيوب الأصلية */
+            max-height: 80%;
+            position: relative;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(0,0,0,1);
+        }
+
+        .close-yt {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 10px 20px;
+            background: #ff0000;
+            color: white;
+            border-radius: 5px;
+            font-weight: bold;
+            z-index: 210;
+        }
+
+        /* مؤشر السرعة (للتمويه) */
+        .speed-limit {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            width: 80px;
+            height: 80px;
+            background: white;
+            border: 6px solid #ff0000;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            font-weight: bold;
+            z-index: 50;
+        }
     </style>
 </head>
 <body>
 
-    <iframe class="map-background" 
-        src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d106666.03422177501!2d44.3610255!3d33.3128059!2m3!1f0!2f0!3f0!3m2!1i1024!2i740!4f13.1!5e0!3m2!1sar!2siq!4v1710000000000!5m2!1sar!2siq">
-    </iframe>
+    <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d106666.123456789!2d44.366!3d33.315!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sar!2siq!4v123456789"></iframe>
 
-    <div class="video-container" id="player">
-        <iframe src="https://www.youtube.com/embed/videoseries?list=PLuvpxm9Y_QK6pU-o9f_V_5KIn0zU50G9j&autoplay=1&mute=0" 
-            allow="autoplay; encrypted-media" allowfullscreen>
-        </iframe>
+    <div class="side-menu">
+        <div class="waze-btn" onclick="alert('بحث...')">🔍</div>
+        <div class="waze-btn" onclick="alert('صوت...')">🔊</div>
+        <div id="openBtn" class="waze-btn youtube-trigger">اضغط هنا</div>
     </div>
 
-    <div class="controls">
-        <button class="btn btn-home" onclick="changeVideo('dQw4w9WgXcQ')">فيديو 1</button>
-        <button class="btn btn-home" onclick="changeVideo('7wtfhZwyrcc')">فيديو 2</button>
-        <button class="btn btn-refresh" onclick="location.reload()">تحديث</button>
+    <div class="speed-limit">100</div>
+
+    <div class="yt-overlay" id="ytOverlay">
+        <div class="close-yt" id="closeBtn">إغلاق X</div>
+        <div class="yt-content">
+            <iframe id="ytPlayer" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
     </div>
 
     <script>
-        function changeVideo(id) {
-            const iframe = document.querySelector('.video-container iframe');
-            iframe.src = `https://www.youtube.com/embed/${id}?autoplay=1`;
-        }
+        const overlay = document.getElementById('ytOverlay');
+        const openBtn = document.getElementById('openBtn');
+        const closeBtn = document.getElementById('closeBtn');
+        const player = document.getElementById('ytPlayer');
+
+        // ضع رابط قائمة التشغيل أو الفيديو هنا
+        const videoUrl = "https://www.youtube.com/embed/videoseries?list=PLuvpxm9Y_QK6pU-o9f_V_5KIn0zU50G9j&autoplay=1";
+
+        openBtn.onclick = function() {
+            overlay.style.display = 'flex';
+            player.src = videoUrl;
+        };
+
+        closeBtn.onclick = function() {
+            overlay.style.display = 'none';
+            player.src = ""; // لإيقاف الصوت عند الإغلاق
+        };
     </script>
 </body>
 </html>
