@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #2e2e2e;
+            color: white;
+            font-family: Arial, sans-serif;
+            direction: rtl;
+        }
+        .clock {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #1e1e1e;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .time-zone {
+            margin: 10px 0;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="clock">
+        <div class="time-zone" id="baghdad"></div>
+        <div class="time-zone" id="london"></div>
+        <div class="time-zone" id="newyork"></div>
+        <div class="time-zone" id="tokyo"></div>
+        <div class="time-zone" id="sydney"></div>
+    </div>
+
+    <script>
+        function updateClocks() {
+            const utcDate = new Date();
+            const options = { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZoneName: 'short', hour12: false };
+
+            document.getElementById('baghdad').innerText = 'بغداد: ' + utcDate.toLocaleString('ar-IQ', options);
+            document.getElementById('london').innerText = 'لندن: ' + utcDate.toLocaleString('en-GB', {...options, timeZone: 'Europe/London'});
+            document.getElementById('newyork').innerText = 'نيويورك: ' + utcDate.toLocaleString('en-US', {...options, timeZone: 'America/New_York'});
+            document.getElementById('tokyo').innerText = 'طوكيو: ' + utcDate.toLocaleString('ja-JP', {...options, timeZone: 'Asia/Tokyo'});
+            document.getElementById('sydney').innerText = 'سيدني: ' + utcDate.toLocaleString('en-AU', {...options, timeZone: 'Australia/Sydney'});
+        }
+
+        setInterval(updateClocks, 1000);
+        updateClocks();
+    </script>
+</body>
+</html>
